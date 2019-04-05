@@ -35,7 +35,7 @@ songs_df <- read_csv("cxg_song_list.csv") %>%
   mutate(song_name_lower = str_remove_all(song_name_lower, "[[:punct:]]"))
 
 m <- rank_song_df %>%
-  stringdist_left_join(songs_df, by = "song_name", max_dist = 3) # "fuzzy matching" accounted for small spelling errors
+  stringdist_left_join(songs_df, by = c(song_name = "song_name_lower"), max_dist = 3) # "fuzzy matching" accounted for small spelling errors
 
 write_csv(m, "fuzzymatched_songs.csv")
 
